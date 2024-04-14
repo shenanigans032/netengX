@@ -196,6 +196,7 @@ spanning-tree Mode Rapid-pvst
 do sh spanning-tree vlan 1
 configure 802.1w/RapidSTP:
 
+!di na nag down yung port kahit mahugot at ibalik
 TAAS: RootBridge
 config t
 spanning-tree Mode Rapid-pvst
@@ -338,8 +339,9 @@ Companies: 2 or 3 telcos:
 config t
 hostname PLDTITO
 Track 1 Int gi 0/1 line-protocol
+!^tracking
 Int vlan 1
-standby 1 ip 10.__.1.6
+standby 1 ip 10.11.1.6
 standby 1 preempt
 standby 1 Priority 150
 standby 1 Track 1 decrement 60
@@ -348,7 +350,8 @@ standby 1 Track 1 decrement 60
 config t
 hostname GLOBE
 Int vlan 1
-standby 1 ip 10.__.1.6
+standby 1 ip 10.11.1.6
+!vrrp/glbp palitan yung standby(hsrp)
 standby 1 preempt
 standby 1 Priority 100
 do sh standby
@@ -420,9 +423,22 @@ int e0/3
  swi mode trunk
 
 D1 = root primary
-d2 = root secondary
+config t
+spanning-tree mode rapid-pvst
+spanning-tree vlan 1-200 root primary
 
+d2 = root secondary
+config t
+spanning-tree mode rapid-pvst
+spanning-tree vlan 1-200 root secondary
+
+A1/A2:
+config t
+spanning-tree mode rapid-pvst
+spanning-tree vlan 1-200 priority 61440
+!never maging boss
 homelab: VTP:
+
 d1/d2:
 config t
 vtp domain ccna
@@ -527,5 +543,17 @@ how to get certified:
 2. Lab: NAT and DHCP:
 
 3. ask sa CHAT: "latest reivewer"
+
+!reset port
+int range fa 0/10-12
+shut
+no shut
+
+int range fa 0/3-7
+shut
+no shut
+
+
+
 
 
