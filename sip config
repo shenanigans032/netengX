@@ -1,0 +1,90 @@
+CUCM11#more flash:sip.txt   
+SIP CONFIGURATION
+conf t
+ voice service voip
+  allow-connections h323 to sip
+  allow-connections sip to h323
+  allow-connections sip to sip
+  supplementary-service h450.12
+ sip
+   bind control source-interface _____0/0
+   bind media source-interface _____0/0
+   registrar server expires max 600 min 60
+!
+ voice register global
+  mode cme
+  source-address 192.168._.1 port 5060
+  max-dn 12
+  max-pool 12
+  authenticate register
+  create profile sync
+ voice register dn 1
+   number ____
+   allow watch
+   name _______
+ voice register dn 2
+          
+   number ___
+          
+   allow watch
+          
+   name _______
+          
+  voice register pool 1
+          
+    id mac ____.____.____
+          
+    number 1 dn 1
+          
+    dtmf-relay sip-notify
+          
+    username ____ password ____
+          
+    codec g711ulaw
+          
+!
+          
+  voice register pool 1
+          
+    id mac ____.____.____
+          
+    number 1 dn 2
+          
+    dtmf-relay sip-notify
+          
+    username ____ password ____
+          
+    codec g711ulaw
+          
+!
+          
+*******call other countries!!!********
+          
+config t
+          
+!
+          
+dial-peer voice _ voip
+          
+destination-pattern k..
+          
+session protocol sipv2
+          
+session target sip-server
+          
+codec g711ulaw
+          
+exit
+          
+sip-ua
+          
+sip-server ipv4:192.168.k.1
+
+
+
+
+
+========================
+
+
+
