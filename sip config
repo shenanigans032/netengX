@@ -7,57 +7,38 @@ conf t
   allow-connections sip to sip
   supplementary-service h450.12
  sip
-   bind control source-interface _____0/0
-   bind media source-interface _____0/0
+   bind control source-interface fa 0/0
+   bind media source-interface fa 0/0
    registrar server expires max 600 min 60
-!
  voice register global
   mode cme
-  source-address 192.168._.1 port 5060
+  source-address 10.11.100.8 port 5060
   max-dn 12
   max-pool 12
   authenticate register
   create profile sync
  voice register dn 1
-   number ____
+   number 11698
+!^^^==change
    allow watch
-   name _______
- voice register dn 2
-          
-   number ___
-          
-   allow watch
-          
-   name _______
-          
-  voice register pool 1
-          
-    id mac ____.____.____
-          
-    number 1 dn 1
-          
-    dtmf-relay sip-notify
-          
-    username ____ password ____
-          
+   name Redmi
+ voice register dn 2        
+   number 11777        
+   allow watch        
+   name samsam        
+  voice register pool 1       
+    id mac 78d8.4019.c0de    
+    number 1 dn 1 
+    dtmf-relay sip-notify   
+    username 11698 password 11698  
+    codec g711ulaw   
+  voice register pool 2   
+    id mac b878.c545.8990   
+    number 1 dn 2        
+    dtmf-relay sip-notify        
+    username 11777 password 11777       
     codec g711ulaw
-          
-!
-          
-  voice register pool 1
-          
-    id mac ____.____.____
-          
-    number 1 dn 2
-          
-    dtmf-relay sip-notify
-          
-    username ____ password ____
-          
-    codec g711ulaw
-          
-!
-          
+         
 *******call other countries!!!********
           
 config t
@@ -86,5 +67,18 @@ sip-server ipv4:192.168.k.1
 
 ========================
 
+sip config
 
+===================
+config t
+dot11 ssid sipwifi11
+authentication open
+authentication key-management wpa
+wpa-psk ascii aaabbb123
+guest-mode
+Int dot11radio 0
+no shut
+encryption mode ciphers tkip
+ssid sipwifi11
+do sh ip int brief
 
