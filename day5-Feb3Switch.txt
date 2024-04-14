@@ -122,11 +122,11 @@ indicator no.3: Kislap every 1/2 seconds
 TASK6: HOW TO GET FIRED IMMEDIATELY!
 @baba:
 config t
- spanning-tree vlan 1
+ no spanning-tree vlan 1
 end
 @taas:
 config t
-spanning-tree vlan 1
+no spanning-tree vlan 1
 end
 
 TASK7: HOW TO BECOME A WORLD-CLASS NETWORK ENGINEER
